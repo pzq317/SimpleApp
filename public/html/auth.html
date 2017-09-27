@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="../stylesheets/style.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.pink-red.min.css" />
+    <script src='https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js'></script>
+    <script src="https://www.gstatic.com/firebasejs/4.4.0/firebase.js"></script>
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <script>
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyA-mp4xND0oTOJqN2V3ucydxiUsahCUW7Y",
+            authDomain: "friendlychat-23d87.firebaseapp.com",
+            databaseURL: "https://friendlychat-23d87.firebaseio.com",
+            projectId: "friendlychat-23d87",
+            storageBucket: "friendlychat-23d87.appspot.com",
+            messagingSenderId: "103669666780"
+        };
+        firebase.initializeApp(config);
+    </script>
+</head>
+<body>
+<!--Main page-->
+<!--<div id="loginCover"></div>-->
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+    <header class="mdl-layout__header">
+        <div class="mdl-layout__header-row">
+            <span class="mdl-layout-title">TinderClass</span>
+            <!-- Add spacer, to align navigation to the right -->
+            <div class="mdl-layout-spacer"></div>
+
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="signupBtn">
+                Sign Up
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="loginBtn">
+                Login
+            </button>
+            <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" id="signoutBtn">
+                Signout
+            </button>
+            <!--<h4 id="greetings">Hi</h4>-->
+        </div>
+    </header>
+    <div class="mdl-layout__drawer" id ="drawer">
+        <span class="mdl-layout-title" id="username"></span>
+        <nav class="mdl-navigation">
+            <a class="mdl-navigation__link">Profile</a>
+            <a class="mdl-navigation__link" href="">Pair</a>
+            <a class="mdl-navigation__link" href="">Connection</a>
+            <a class="mdl-navigation__link" href="">Logout</a>
+        </nav>
+    </div>
+    <!--login diagram-->
+
+    <dialog id="Ldialog" class="mdl-dialog">
+        <h4 class="mdl-dialog__title">Login</h4>
+        <div class="mdl-dialog__content">
+            <p id="loginError"></p>
+
+            <!--<form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="name">
+                    <label class="mdl-textfield__label" for="password" id="label_name">name</label>
+                </div>
+            </form>-->
+            <form>
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="email">
+                    <label class="mdl-textfield__label" for="email" id="label_email">Email</label>
+                </div>
+            </form>
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="password">
+                    <label class="mdl-textfield__label" for="password" id="label">Password</label>
+                </div>
+            </form>
+
+
+        </div>
+
+
+        <button id="LarrowBtn" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons">keyboard_arrow_right</i>
+        </button>
+        <div id="Lloading" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+
+    </dialog>
+    <!--Sign Up diagram-->
+
+    <dialog id="Sdialog" class="mdl-dialog">
+        <h4 class="mdl-dialog__title">SignUp</h4>
+        <div class="mdl-dialog__content">
+            <p id="signupError"></p>
+            <!--<form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="sname">
+                    <label class="mdl-textfield__label" for="password" id="s_label_name">name</label>
+                </div>
+            </form>-->
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="semail">
+                    <label class="mdl-textfield__label" for="semail" id="s_label_email">Email</label>
+                </div>
+            </form>
+            <form action="#">
+                <div class="mdl-textfield mdl-js-textfield">
+                    <input class="mdl-textfield__input" type="text" id="spassword">
+                    <label class="mdl-textfield__label" for="spassword">Password</label>
+                </div>
+            </form>
+        </div>
+
+
+        <button id="SarrowBtn" class="mdl-button mdl-js-button mdl-button--fab mdl-button--colored">
+            <i class="material-icons">keyboard_arrow_right</i>
+        </button>
+        <div id="Sloading" class="mdl-spinner mdl-spinner--single-color mdl-js-spinner is-active"></div>
+
+
+    </dialog>
+    <main class="mdl-layout__content">
+        <div class="page-content"><!-- Your content goes here --></div>
+    </main>
+</div>
+<script src="../javascripts/auth.js"></script>
+
+</body>
+</html>

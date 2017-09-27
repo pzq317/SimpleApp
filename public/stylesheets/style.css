@@ -1,0 +1,48 @@
+
+
+#LarrowBtn{
+
+  float: right;
+}
+#SarrowBtn{
+  float: right;
+}
+#signoutBtn{
+
+  float: right;
+}
+
+#Sloading{
+  float: right;
+  display: none;
+}
+
+#Lloading {
+  float: right;
+  display: none;
+}
+
+#loginError{
+  display: none;
+}
+#signupError{
+  display: none;
+}
+#loginCover{
+  background: #ffffff;
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 800;
+}
+#loginBtn{
+  display: none;
+}
+#signupBtn{
+  display: none;
+}
+#greetings{
+  float: right;
+}
