@@ -4,6 +4,10 @@
 /**
  * Created by pzq317 on 22/09/2017.
  */
+//                       firebase admin SDk
+
+
+
 var username =  document.getElementById("username");
 
 var fire = firebase.database().ref("user");
@@ -98,14 +102,24 @@ $('#LarrowBtn').click(function(){
 $('#SarrowBtn').click(function(){
     var email = document.getElementById("semail").value;
     var password = document.getElementById("spassword").value;
-    //var name = document.getElementById("sname").value;
+    var name = document.getElementById("sname").value;
+    var tel = document.getElementById("stel").value;
     //fire.update({"name":name});
     console.log("email"+email+"\n"+"password"+password);
 
-    if(email!="" && password!=""){
-        $("#SarrowBtn").hide();
-        $("#Sloading").show();
-        firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+    //pass to server
+    $.ajax({
+        type: 'POST',
+        data: {"email":email,"password":password,"name":name,"tel":tel},
+        url: '/endpoint',
+        success: function(data) {
+            console.log('success');
+            console.log(JSON.stringify(data));
+        }
+    });
+
+        /*       Sign in with Email and password*/
+        /*firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
             // Handle Errors here.
             var errorCode = error.code;
             var errorMessage = error.message;
@@ -113,9 +127,7 @@ $('#SarrowBtn').click(function(){
             $("#SarrowBtn").show();
             $("#Sloading").hide();
             // ...
-        });
-
-    }
+        });*/
 });
 $('#signoutBtn').click(function () {
     firebase.auth().signOut().then(function() {
