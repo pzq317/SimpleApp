@@ -8,16 +8,9 @@
 
 
 
-var username =  document.getElementById("username");
 
-var fire = firebase.database().ref("user");
 
-fire.on('value', function(snapshot){
-    console.log(snapshot.val())
-    username.innerText ="Hello, " + snapshot.val().name
-});
-
-var type = 0
+var type = 0;
 //authencation
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -30,22 +23,25 @@ firebase.auth().onAuthStateChanged(function(user) {
 
         if(type==2) {
             var dialog = document.querySelector('#Sdialog');
-            if (!dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }
+
+            $("#signupError").hide()
             $("#semail").val('');
             $("#spassword").val('');
+            $("#stel").val('');
+            $("#sname").val('');
             $("#SarrowBtn").show();
             $("#Sloading").hide();
             dialog.close();
         }
         if(type == 1) {
             var dialog = document.querySelector('#Ldialog');
-            if (!dialog.showModal) {
-                dialogPolyfill.registerDialog(dialog);
-            }
-            $("#email").val('');
-            $("#password").val('');
+
+            //$("#email").reset();
+            //$("#password").reset();
+            $("#loginError").hide()
+            $(".login").each(function () {
+                this.reset();
+            });
             $("#LarrowBtn").show();
             $("#Lloading").hide();
             dialog.close();
@@ -106,7 +102,8 @@ $('#SarrowBtn').click(function(){
     var tel = document.getElementById("stel").value;
     //fire.update({"name":name});
     console.log("email"+email+"\n"+"password"+password);
-
+    $("#SarrowBtn").hide();
+    $("#Sloading").show();
     //pass to server
     $.ajax({
         type: 'POST',
@@ -114,8 +111,28 @@ $('#SarrowBtn').click(function(){
         url: '/endpoint',
         success: function(data) {
             console.log('success');
-            console.log(JSON.stringify(data));
+            //console.log(JSON.stringify(data));
+            if(data.state =="correct"){
+                console.log(data.name,data.uid);
+
+                /*put uid in to database*/
+                var fire = firebase.database().ref(data.uid);
+                fire.set({"uid":data.uid,"name":data.name});
+
+                /*Signin*/
+                firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
+
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                });
+            }
+            else {
+                $("#signupError").show().text(data);
+                $("#SarrowBtn").show();
+                $("#Sloading").hide();
+            }
         }
+
     });
 
         /*       Sign in with Email and password*/

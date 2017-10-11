@@ -38,9 +38,9 @@ router.post('/endpoint', function (req,res,next){
         displayName: req.body.name,
         disabled: false
     }).then(function(userRecord) {
-            // See the UserRecord reference doc for the contents of userRecord.
+            // pass name and uid to front end
             console.log("Successfully created new user:", userRecord.uid);
-            res.send("correct user");
+            res.send({"state":"correct","uid":userRecord.uid,"name":userRecord.displayName});
         }).catch(function(error) {
             console.log("Error creating new user:", error.message);
             res.send(error.message);
