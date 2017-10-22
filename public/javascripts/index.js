@@ -2,21 +2,26 @@
  * Created by pzq317 on 21/09/2017.
  */
 
-var textv = document.getElementById("text");
-var submitBtn = document.getElementById("submitbtn");
-var heading = document.getElementById("heading");
+//var textv = document.getElementById("text");
+//var submitBtn = document.getElementById("submitbtn");
+//var heading = document.getElementById("heading");
 
-var fb = firebase.database().ref().child("heading")
-var fc = firebase.database().ref().child("name")
+var fb = firebase.database().ref()
+//var fc = firebase.database().ref().child("name")
 //fb.on('value',function (snapshot) {
 //    heading.innerText = snapshot.val()
 //    console.log(heading.innerText)
 //})
 
-fc.on('value',function (snapshot) {
-    heading.innerText = snapshot.val().name
+fb.on('value',function (snapshot) {
+     console.log("test",snapshot.val())
 
 })
+
+//fc.on('value',function (snapshot) {
+//    heading.innerText = snapshot.val().name
+
+//})
 
 function submit(){
 

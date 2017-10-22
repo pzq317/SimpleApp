@@ -15,8 +15,8 @@ admin.initializeApp({
 router.get('/', function(req, res, next) {
     res.render('index', { title: 'Express' });
 });
-router.get('/user', function(req, res, next) {
-    res.send('respond with a resource');
+router.get('/popup', function(req, res, next) {
+    res.sendFile(path.join(__dirname, '../public/html/popup.html'));
 });
 router.get('/index', function (req, res, next) {
     //console.log("here")
@@ -36,6 +36,7 @@ router.post('/endpoint', function (req,res,next){
         phoneNumber: "+1"+req.body.tel,
         password: req.body.password,
         displayName: req.body.name,
+        photoURL: "https://static.pepy.jp/wp-content/uploads/2017/06/10110204/shutterstock_617307485-480x320.jpg",
         disabled: false
     }).then(function(userRecord) {
             // pass name and uid to front end

@@ -14,5 +14,7 @@ firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
         console.log(user.uid,user.displayName,user.email)
         username.innerText ="Hello, " +user.displayName
+    }else{
+        console.log("nobody sign in ");
     }
 });

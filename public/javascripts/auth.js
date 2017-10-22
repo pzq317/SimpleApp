@@ -12,13 +12,16 @@
 
 var type = 0;
 //authencation
-
+var userid = "";
+var name = "";
 firebase.auth().onAuthStateChanged(function(user) {
     if (user) {
-
+        userid = user.uid;
+        name = user.displayName;
         $("#signupBtn").hide();
         $("#loginBtn").hide();
         $("#signoutBtn").show();
+        $("#invite-box").show();
         $("#drawer").show();
 
         if(type==2) {
@@ -48,12 +51,15 @@ firebase.auth().onAuthStateChanged(function(user) {
         }
 
     } else {
-
+        name = "";
+        userid = "";
 
 
         $("#signupBtn").show();
         $("#loginBtn").show();
         $("#signoutBtn").hide();
+        $("#invite-box").hide();
+
     }
 });
 
@@ -154,4 +160,14 @@ $('#signoutBtn').click(function () {
     });
 
 });
+//$('#whole_page');
+
+
+
+
+
+
+
+
+
 
