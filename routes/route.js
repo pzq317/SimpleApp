@@ -13,7 +13,10 @@ admin.initializeApp({
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-    res.render('index', { title: 'Express' });
+    res.sendFile(path.join(__dirname,'../public/html/homepage.html'))
+});
+router.get('/signup', function(req, res, next) {
+    res.sendFile(path.join(__dirname,'../public/html/signup.html'))
 });
 router.get('/popup', function(req, res, next) {
     res.sendFile(path.join(__dirname, '../public/html/popup.html'));
@@ -25,7 +28,7 @@ router.get('/index', function (req, res, next) {
 router.get('/menu', function (req,res,next){
     res.sendFile(path.join(__dirname,'../public/html/auth.html'))
 });
-router.post('/endpoint', function (req,res,next){
+/*router.post('/endpoint', function (req,res,next){
     var err="";
     console.log("recieved req");
     console.log(req.body);
@@ -41,30 +44,32 @@ router.post('/endpoint', function (req,res,next){
     }).then(function(userRecord) {
             // pass name and uid to front end
             console.log("Successfully created new user:", userRecord.uid);
-            res.send({"state":"correct","uid":userRecord.uid,"name":userRecord.displayName});
+            res.send({"state":"correct","uid":userRecord.uid,"name":userRecord.displayName,"tel":userRecord.phoneNumber});
         }).catch(function(error) {
             console.log("Error creating new user:", error.message);
             res.send(error.message);
         });
 
-
-    //res.end();
-    /*admin.auth().createUser({
-        email: req.body.email,
+});*/
+router.post('/end', function (req,res,next){
+    var err="";
+    console.log("recieved req");
+    admin.auth().createUser({
+        email:req.body.email,
         emailVerified: false,
-        phoneNumber: req.body.tel,
+        phoneNumber: "+1"+req.body.tel,
         password: req.body.password,
         displayName: req.body.name,
-        //photoURL: "http://www.example.com/12345678/photo.png",
+        photoURL: "https://static.pepy.jp/wp-content/uploads/2017/06/10110204/shutterstock_617307485-480x320.jpg",
         disabled: false
-    })
-        .then(function(userRecord) {
-            // See the UserRecord reference doc for the contents of userRecord.
-            console.log("Successfully created new user:", userRecord.uid);
-        })
-        .catch(function(error) {
-            console.log("Error creating new user:", error);
-        });*/
+    }).then(function(userRecord) {
+        // pass name and uid to front end
+        console.log("Successfully created new user:", userRecord.uid);
+        res.send({"state":"correct","uid":userRecord.uid,"name":userRecord.displayName});
+    }).catch(function(error) {
+        console.log("Error creating new user:", error.message);
+        res.send(error.message);
+    });
 
 });
 module.exports = router;

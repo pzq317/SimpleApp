@@ -123,7 +123,7 @@ $('#SarrowBtn').click(function(){
 
                 /*put uid in to database*/
                 var fire = firebase.database().ref(data.uid);
-                fire.set({"uid":data.uid,"name":data.name});
+                fire.set({"uid":data.uid,"name":data.name,"tel":data.tel});
 
                 /*Signin*/
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
