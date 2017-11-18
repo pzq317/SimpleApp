@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="f15321fb-aa0b-4b1f-bffd-88779fa12727" name="Default" comment="some added css files">
+    <list default="true" id="f15321fb-aa0b-4b1f-bffd-88779fa12727" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="SimpleApp.iws" />
@@ -958,7 +958,7 @@
       <workItem from="1510610765672" duration="118000" />
       <workItem from="1510626392909" duration="10685000" />
       <workItem from="1510715722177" duration="10146000" />
-      <workItem from="1510868990915" duration="20420000" />
+      <workItem from="1510868990915" duration="20431000" />
     </task>
     <task id="LOCAL-00001" summary="sign in ready">
       <created>1507238815067</created>
@@ -1016,11 +1016,18 @@
       <option name="project" value="LOCAL" />
       <updated>1510964831857</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="some added css files">
+      <created>1510965621234</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1510965621234</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="149405000" />
+    <option name="totallyTimeSpent" value="149416000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="800" extended-state="0" />
