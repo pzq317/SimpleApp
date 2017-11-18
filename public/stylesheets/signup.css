@@ -1,4 +1,10 @@
 html, body {
+    background: url(../images/cover600.jpg) no-repeat center center fixed ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+
   font-family: "American Typewriter", sans-serif;
   height: 100%;
   min-height: 100%;
@@ -341,6 +347,7 @@ footer ul {
   background: #007bb5;
   color: white;
 }
+
 
 
 

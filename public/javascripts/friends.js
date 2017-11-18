@@ -1,65 +1,66 @@
-/**
+/*
  * Created by pzq317 on 19/10/2017.
  */
 var fb = firebase.database().ref();
 
 var name = "";
 var userid = "";
-
-/*fb.on('value',function (snapshot) {
-    console.log("test",snapshot.val());
-    for(var obj in snapshot.val()) {
-
-        var friend_box = document.createElement('div');
-        console.log(obj);
-        console.log(fb.child(obj));
-        friend_box.innerText = fb.child(obj);
-        friend_box.className = "mdl-cell mdl-cell--4-col";
-        document.getElementsByClassName('mdl-grid')[0].appendChild(friend_box);
-    }
-    //$(".mdl-cell mdl-c").append("<div>hi</div>")
-});*/
-
+var friend_num =0;
 fb.on('child_added',function (snapshot) {
     var data = snapshot.val();
-    //snapshot.forEach(function (child) {
-    //var data = child.val();
-    var enter = document.createElement('br');
     console.log(data);
-    var friend_box = document.createElement('div');
-    friend_box.innerText = data.name + "\n" + data.uid;
-    friend_box.id = data.uid;
-    friend_box.className = 'mdl-cell mdl-cell--4-col';
+    var enter = document.createElement('br');
+    var flag = document.createElement('div');
+    flag.className = "flag pam";
+    var pic = document.createElement('div');
+    pic.className = "flag--image prm";
+    var img = document.createElement("img");
+    img.src = "../assets/45.jpeg";
+    img.className ="irm";
 
-    document.getElementsByClassName('mdl-grid')[0].appendChild(friend_box);
+    pic.appendChild(img);
 
-    //document.getElementsByClassName('mdl-grid')[0].appendChild(enter);
+    var tname = document.createElement('div');
+    tname.className ="fw-semibold f1 db nam";
+    tname.innerText = data.name;
+    var time = document.createElement('time');
+    time.className = "db f6 text-color-2 time";
+    time.innerText = data.uid
+    var footer = document.createElement('footer');
+    footer.className="clear phm ptm mbm border-top border--3";
+    var invite_icon = document.createElement('span');
+    invite_icon.className='dib mrs icon-utility-groups f1 send_message';
+    invite_icon.id = data.uid;
 
-
-    //document.getElementsByClassName('mdl-grid')[0].appendChild(enter);
-    document.getElementById(data.uid).appendChild(enter);
-
-
-    var send_message = document.createElement('button');
-    send_message.innerText = "Send Invitation";
-    send_message.id = data.uid;
-    send_message.className = "send_message";
-    send_message.onclick = function get_uid() {
+    invite_icon.onclick = function get_uid() {
         console.log(this.id);
         chatWithWhom(this.id)
     };
-    //send_message.appendChild(enter);
 
-    document.getElementById(data.uid).appendChild(send_message);
-    //}
-//});
+    
+    footer.appendChild(invite_icon);
+
+    flag.appendChild(pic);
+
+    var friend_box = document.createElement('action');
+    friend_box.id = data.uid;
+    friend_box.className = 'mam bg-1 brm border border--9';
+    friend_box.appendChild(flag);
+    friend_box.appendChild(tname);
+    friend_box.appendChild(time);
+    friend_box.appendChild(footer);
+    document.getElementById('scroller').appendChild(friend_box);
+
+    document.getElementById(data.uid).appendChild(enter);
 });
+
 function chatWithWhom(id){
-    //fb.child(id+"/who invite me")
-    fb.child(id).child("who invite me").child(name).set(userid);
-    //fb.child(id).update({"who invite me ":userid});
-    //fb.child(id).update({"invite":1});
-    console.log(userid+" is sending to "+id)
+    if(friend_num>=3) {
+        alert("your reach your member limit");
+    }else{
+        fb.child(id).child("who invite me").child(name).set(userid);
+        console.log(userid + " is sending to " + id);
+    }
 }
 
 firebase.auth().onAuthStateChanged(function(user) {
@@ -67,21 +68,28 @@ firebase.auth().onAuthStateChanged(function(user) {
         userid = user.uid;
         name = user.displayName;
         check_invitation();
+        check_friends();
+        friend_num = 0;
+        firebase.database().ref().child(userid).child("friends").on('value',function (snap) {
+            if(snap.val()) {
+                friend_num = Object.keys(snap.val()).length;
+                console.log("friends", friend_num)
+            }
+        });
     }else{
         name = "";
         userid = "";
+        friend_num = 0;
     }
 });
 
 
+
 function check_invitation() {
     fb.child(userid).child("who invite me").on('value', function (snapchat) {
-        //console.log(snapchat.toJSON());
         var num = snapchat.val();
-        console.log(num)
-        //console.log(Object.keys(snapchat.val()))
+        //console.log(Object.values(num));
         $(".drop").remove();
-        //console.log(num);
         if(num == null){
             $('#invite-box').attr("data-badge", "0");
         }else {
@@ -93,11 +101,10 @@ function check_invitation() {
                 var inviteBtn = document.createElement('button');
                 inviteBtn.id = Object.keys(num)[i];
                 inviteBtn.className = 'mdl-button mdl-js-button mdl-button--raised';
+                inviteBtn.attr = Object.values(num)[i];
                 inviteBtn.innerText = "confirm";
                 inviteBtn.onclick = function make_friends() {
-
                     confirm(this);
-
                 };
                 drop.appendChild(inviteBtn);
                 document.getElementById("myDropdown").appendChild(drop)
@@ -106,35 +113,57 @@ function check_invitation() {
         }
     });
 }
-/* When the user clicks on the button,
- toggle between hiding and showing the dropdown content */
+
 function confirm(data){
-    console.log(data.id,data.className);
-    fb.child(userid).child("friends").child(data.id).set(true);
-    fb.child(userid).child("who invite me").child(data.id).remove()
-    check_invitation()
+    console.log(name,data.id,data.className,data.attr);
+    var other_friend_num = 0;
+    firebase.database().ref().child(data.attr).child("friends").on('value',function (snap) {
+        other_friend_num = Object.keys(snap.val()).length;
+        console.log("other_friends",other_friend_num)
+    });
+    if(other_friend_num>=3) {
+        alert("the inviter had reach their member limit");
+        $('#'+data.id).remove();
+    }else{
+        fb.child(userid).child("friends").child(data.id).set(true);
+        fb.child(userid).child("who invite me").child(data.id).remove();
+        fb.child(data.attr).child("friends").child(name).set(true);
+        fb.child(userid).child("friend_num").set(friend_num+1);
+        fb.child(data.attr).child("friend_num").set(other_friend_num+1);
+    }
+
+
+    check_invitation();
+    check_friends()
 }
 
 function myFunction() {
     document.getElementById("myDropdown").classList.toggle("show");
 
 }
-
-
-// Close the dropdown menu if the user clicks outside of it
-/*window.onclick = function(event) {
-    if (!event.target.matches('#invite-box' || '#inviteBtn')) {
-
-        var dropdowns = document.getElementsByClassName("dropdown-content");
-        var i;
-        for (i = 0; i < dropdowns.length; i++) {
-            var openDropdown = dropdowns[i];
-            if (openDropdown.classList.contains('show')) {
-                openDropdown.classList.remove('show');
+function check_friends() {
+    $(".friends").remove();
+    firebase.database().ref().child(userid).child("friends").on('value',function (snap) {
+        var data = snap.val();
+        if(data){
+            for (i = 0; i < Object.keys(data).length; i++) {
+                var friend_block = document.createElement('a');
+                friend_block.className = "mdl-navigation__link friends";
+                friend_block.innerText = Object.keys(data)[i];
+                document.getElementsByClassName("mdl-navigation")[0].appendChild(friend_block);
+                console.log("friends", snap.val());
             }
+            friend_num = Object.keys(data).length;
+            document.getElementsByClassName("friends_limit")[0].innerText = "members  " + friend_num + "/3";
+        }else{
+            document.getElementsByClassName("friends_limit")[0].innerText = "members  0/3";
         }
-    }
-};*/
+
+
+    });
+
+}
+
 
 
 

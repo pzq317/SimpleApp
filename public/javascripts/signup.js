@@ -73,7 +73,7 @@ $('#submit').click(function() {
             if(data.state =="correct"){
                 /*put uid in to database*/
                 var fire = firebase.database().ref(data.uid);
-                fire.set({"uid":data.uid,"name":data.name,"tel":tel,"major":major,"year":year,"gender":gender,"skill":skill, "interestedfield":interestedfield,"preference":preference});
+                fire.set({"uid":data.uid,"name":data.name,"tel":tel,"major":major,"year":year,"gender":gender,"skill":skill, "interestedfield":interestedfield,"preference":preference,"friend_num":0});
                 window.location  = "http://localhost:3000/menu";
                 /*Signin*/
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {

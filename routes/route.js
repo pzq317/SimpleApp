@@ -12,8 +12,15 @@ admin.initializeApp({
 });
 
 /* GET home page. */
+
 router.get('/', function(req, res, next) {
     res.sendFile(path.join(__dirname,'../public/html/homepage.html'))
+});
+router.get('/sort', function(req, res, next) {
+    res.sendFile(path.join(__dirname,'../public/html/sort.html'))
+});
+router.get('/menu', function(req, res, next) {
+    res.sendFile(path.join(__dirname,'../public/html/example-horizontal-scrolling.html'))
 });
 router.get('/signup', function(req, res, next) {
     res.sendFile(path.join(__dirname,'../public/html/signup.html'))
@@ -25,9 +32,9 @@ router.get('/index', function (req, res, next) {
     //console.log("here")
     res.sendFile(path.join(__dirname, '../public/html/index.html'));
 });
-router.get('/menu', function (req,res,next){
+/*router.get('/menu', function (req,res,next){
     res.sendFile(path.join(__dirname,'../public/html/auth.html'))
-});
+});*/
 /*router.post('/endpoint', function (req,res,next){
     var err="";
     console.log("recieved req");
