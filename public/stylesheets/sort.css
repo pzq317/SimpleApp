@@ -1,0 +1,39 @@
+body, html {
+    height: 100%;
+    background: url(../images/cover600.jpg) no-repeat center center fixed ;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    text-align: center;
+}
+
+
+
+.pic{
+    display:inline-block;
+    margin-top: 150px;
+    height: 300px;
+    width: 300px;
+}
+
+.pic img{
+    height: 100%;
+    width: 100%;
+
+}
+.circular--square {
+    border-radius: 50%;
+}
+.prof{
+    margin-top: 50px;
+    font-family:    Arial, Helvetica, sans-serif;
+    font-size:      40px;
+    font-weight:    bold;
+    color: ghostwhite;
+
+}
+#sortBtn{
+    margin-top: 50px;
+
+}

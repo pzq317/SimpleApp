@@ -5,7 +5,18 @@ var type = 0;
 //authencation
 var userid = "";
 var name = "";
+firebase.auth().onAuthStateChanged(function(user) {
+    if (user) {
+        userid = user.uid;
+        name = user.displayName;
+        window.location.replace("http://localhost:3000/menu")
 
+    } else {
+        name = "";
+        userid = "";
+        $("#login").show();
+    }
+});
 $("#loginBtn").click(function () {
 
     var dialog = document.querySelector('#Ldialog');
@@ -74,13 +85,15 @@ $('#submit').click(function() {
                 /*put uid in to database*/
                 var fire = firebase.database().ref(data.uid);
                 fire.set({"uid":data.uid,"name":data.name,"tel":tel,"major":major,"year":year,"gender":gender,"skill":skill, "interestedfield":interestedfield,"preference":preference,"friend_num":0});
-                window.location  = "http://localhost:3000/menu";
+                console.log("input success");
                 /*Signin*/
                 firebase.auth().signInWithEmailAndPassword(email, password).catch(function(error) {
 
                     var errorCode = error.code;
                     var errorMessage = error.message;
                 });
+
+                //window.location  = "http://localhost:3000/menu";
             }
             else {
                 $("#signupError").show().text(data);

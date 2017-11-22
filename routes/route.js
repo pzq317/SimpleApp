@@ -3,7 +3,7 @@
  */
 var express = require('express');
 var router = express.Router();
-var path = require('path')
+var path = require('path');
 var admin = require('firebase-admin');
 var serviceAccount = require("../public/javascripts/friendlychat-23d87-firebase-adminsdk-wiphm-cc8b4197a1.json");
 admin.initializeApp({
