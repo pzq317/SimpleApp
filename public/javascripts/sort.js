@@ -13,7 +13,7 @@ var i = 0;
 
 
 $('#sortBtn').click(function () {
-    sorted(0);
+    sorted(1);
 });
 
 
@@ -44,7 +44,7 @@ function sorted(i) {
                             sort.child(otherid).child("friend_num").set(i + 1);
                         }
                     }
-                    sorted(i+1)
+                    //sorted(i+1)
                 }
                 else {
                     for (var fri = 0; fri < searchlist.length; fri += 1) {
@@ -67,6 +67,7 @@ function sorted(i) {
                             break;
                         }
                     }
+                    sorted(i-1)
                 }
             }
 

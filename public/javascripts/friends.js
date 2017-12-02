@@ -43,7 +43,12 @@ function appendScroller(data) {
     var pic = document.createElement('div');
     pic.className = "flag--image prm";
     var img = document.createElement("img");
-    img.src = "../assets/45.jpeg";
+    if(data.name=="Bacon"||data.name=="Harry"||data.name=="Henry"||data.name=="Jeffrey"||data.name=="Linda"||data.name=="Mary"||data.name=="Mindy") {
+        img.src = "../assets/" + data.name + ".jpeg";
+    }
+    else {
+        img.src = "../assets/cat.jpg";
+    }
     img.className ="irm";
 
     pic.appendChild(img);
@@ -133,7 +138,7 @@ function appendScroller(data) {
     friend_box.appendChild(int2);
     friend_box.appendChild(br);
     friend_box.appendChild(pre1);
-    friend_box.appendChild(pre1);
+    friend_box.appendChild(pre2);
     friend_box.appendChild(br);
     friend_box.appendChild(maj1);
     friend_box.appendChild(maj2);
